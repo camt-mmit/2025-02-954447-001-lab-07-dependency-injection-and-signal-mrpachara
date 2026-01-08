@@ -169,12 +169,18 @@ textarea {
       --prop-column-gap: var(--app-column-gap);
       --prop-row-gap: var(--app-row-gap);
 
+      --prop-border-style: 1px solid var(--prop-border-color);
+
       &.app-cl-filled {
-        --prop-on-hover-background-color: color-mix(
+        --prop-filling-color: color-mix(
           in srgb,
           var(--prop-background-color),
           var(--app-surface-container-color) 25%
         );
+
+        & > *:not(.app-st-active):not(:hover) {
+          --prop-text-color: var(--app-on-surface-color);
+        }
       }
     }
   }
@@ -201,12 +207,12 @@ textarea {
 
     color: var(--prop-text-color);
     font-weight: bold;
-    border: 1px solid var(--prop-border-color);
+    border: var(--prop-border-style);
     border-radius: 4px;
     overflow: hidden;
 
     &.app-st-active {
-      background-color: color(from var(--prop-filling-color) srgb r g b / 0.9);
+      background-color: var(--prop-filling-color);
     }
 
     &:not(.app-st-active):hover {
