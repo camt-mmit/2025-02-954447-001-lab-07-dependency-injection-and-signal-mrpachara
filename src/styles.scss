@@ -13,6 +13,7 @@
   --sys-surface-container-color: light-dark(#808080, #404040);
   --sys-on-surface-color: light-dark(#333333, #ffffff);
   --sys-warn-color: #ff0000;
+  --sys-on-warn-color: #ffffff;
 
   --sys-gap: 4px;
   --sys-column-gap: calc(2 * var(--sys-gap));
@@ -39,6 +40,7 @@
   --app-surface-container-color: var(--sys-surface-container-color);
   --app-on-surface-color: var(--sys-on-surface-color);
   --app-warn-color: var(--sys-warn-color);
+  --app-on-warn-color: var(--sys-on-warn-color);
 
   --app-gap: var(--sys-gap);
   --app-column-gap: var(--sys-column-gap);
@@ -83,19 +85,22 @@ textarea {
   font-size: inherit;
 }
 
-.app-cl-code,
-input[type='number'],
-.app-cl-number {
-  font-family: var(--app-monospace-font);
-}
+.app-cmp-flex-row {
+  display: inline-flex;
+  flex-direction: row;
+  align-items: center;
+  flex-wrap: wrap;
 
-input[type='number'],
-.app-cl-number {
-  text-align: right;
-}
+  & > .app-cl-flex {
+    flex: 1 0 auto;
+  }
 
-.app-cl-warn {
-  --cmp-color: var(--app-warn-color);
+  & > .app-cl-meta {
+    @include common.layout-block();
+
+    display: inline-block;
+    margin-left: auto;
+  }
 }
 
 .app-cmp-button {
@@ -111,22 +116,12 @@ input[type='number'],
 
       --prop-border-style: 1px solid var(--prop-border-color);
 
-      &.app-cl-secondary {
-        --prop-color: var(--app-secondary-color);
-        --prop-on-color: var(--app-on-secondary-color);
-      }
-
       &.app-cl-filled {
-        --prop-text-color: var(--prop-on-color);
-        --prop-border-color: transparent;
-        --prop-background-color: var(--prop-color);
         --prop-on-hover-background-color: color-mix(
           in srgb,
           var(--prop-background-color),
           var(--app-surface-container-color) 25%
         );
-
-        --prop-border-style: 0px solid var(--prop-border-color);
       }
     }
   }
@@ -161,37 +156,25 @@ input[type='number'],
   }
 }
 
-.app-cmp-flex-row {
-  display: inline-flex;
-  flex-direction: row;
-  align-items: center;
-  flex-wrap: wrap;
-
-  & > .app-cl-flex {
-    flex: 1 0 auto;
-  }
-
-  & > .app-cl-meta {
-    @include common.layout-block();
-
-    display: inline-block;
-    margin-left: auto;
-  }
-}
-
 .app-cmp-nav {
   @layer {
     & {
       --prop-color: var(--app-primary-color);
+      --prop-on-color: var(--app-on-primary-color);
 
       --prop-text-color: var(--prop-color);
       --prop-border-color: var(--prop-text-color);
+      --prop-background-color: transpalent;
       --prop-filling-color: var(--app-surface-container-color);
       --prop-column-gap: var(--app-column-gap);
       --prop-row-gap: var(--app-row-gap);
 
-      &.app-cl-secondary {
-        --prop-color: var(--app-secondary-color);
+      &.app-cl-filled {
+        --prop-on-hover-background-color: color-mix(
+          in srgb,
+          var(--prop-background-color),
+          var(--app-surface-container-color) 25%
+        );
       }
     }
   }
@@ -246,6 +229,37 @@ input[type='number'],
       text-decoration: none;
       white-space: nowrap;
     }
+  }
+}
+
+.app-cl-code,
+input[type='number'],
+.app-cl-number {
+  font-family: var(--app-monospace-font);
+}
+
+input[type='number'],
+.app-cl-number {
+  text-align: right;
+}
+
+@layer {
+  .app-cl-warn {
+    --prop-color: var(--app-warn-color);
+    --prop-on-color: var(--app-on-warn-color);
+  }
+
+  .app-cl-secondary {
+    --prop-color: var(--app-secondary-color);
+    --prop-on-color: var(--app-on-secondary-color);
+  }
+
+  .app-cl-filled {
+    --prop-text-color: var(--prop-on-color);
+    --prop-border-color: transparent;
+    --prop-background-color: var(--prop-color);
+
+    --prop-border-style: 0px solid var(--prop-border-color);
   }
 }
 
